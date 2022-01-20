@@ -4,10 +4,11 @@
 #include <Adafruit_HTS221.h>
 
 // Set variables in rhe file
-#include "arduino_secrets.h"
-
 #define wifi_ssid "wifi"
 #define wifi_password "password"
+
+#include "arduino_secrets.h"
+
 
 // https://www.gnu.org/software/libc/manual/html_node/TZ-Variable.html
 const char* TZstr = "CST+6CDT";
