@@ -87,7 +87,17 @@ void setup_wifi() {
 }
 
 
-
+//generate unique name from MAC addr
+String macToStr(const uint8_t* mac) {
+  String result;
+  for (int i = 0; i < 6; ++i) {
+    result += String(mac[i], 16);
+    if (i < 5) {
+      result += ':';
+    }
+  }  
+  return result;
+}
 
 void reconnect() {
   // Loop until we're reconnected
@@ -97,7 +107,14 @@ void reconnect() {
     // If you do not want to use a username and password, change next line to
     // if (client.connect("ESP8266Client")) {
     // if (client.connect("ESP8266Client", mqtt_user, mqtt_password)) {
-    if (client.connect("ESP8266Client")) {
+
+    String clientName;
+    clientName += "esp8266-";
+    uint8_t mac[6];
+    WiFi.macAddress(mac);
+    clientName += macToStr(mac);
+    
+    if (client.connect((char*) clientName.c_str())) {
       Serial.println("connected");
     } else {
       Serial.print("failed, rc=");
